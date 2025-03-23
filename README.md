@@ -9,7 +9,7 @@
 
 -  **Frontend:** React.js, Vite, Redux Toolkit, Tailwind CSS
 -  **State Management:** Redux Toolkit
--  **Backend:** [devTinder Backend](https://github.com/akshadjaiswal/devTinder-backend)
+-  **Backend:** [devTinder Backend](https://github.com/josephsamimmanuel/Dev_Tinder_Service)
 -  **Authentication:** JWT
 -  **Database:** MongoDB (via backend)
 
@@ -48,7 +48,7 @@ npm run dev
 
 ## 🔧 API Endpoints
 
-The frontend interacts with the backend API hosted in the [devTinder-backend](https://github.com/akshadjaiswal/devTinder-backend). Ensure the backend is running before using the frontend.
+The frontend interacts with the backend API hosted in the [devTinder-backend](https://github.com/josephsamimmanuel/Dev_Tinder_Service). Ensure the backend is running before using the frontend.
 
 ## 🚀 Deployment
 
