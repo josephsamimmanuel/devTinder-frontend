@@ -9,7 +9,7 @@
 
 -  **Frontend:** React.js, Vite, Redux Toolkit, Tailwind CSS
 -  **State Management:** Redux Toolkit
--  **Backend:** [devTinder Backend](https://github.com/akshadjaiswal/devTinder-backend)
+-  **Backend:** [devTinder Backend](https://github.com/josephsamimmanuel/Dev_Tinder_Service)
 -  **Authentication:** JWT
 -  **Database:** MongoDB (via backend)
 
@@ -48,7 +48,7 @@ npm run dev
 
 ## 🔧 API Endpoints
 
-The frontend interacts with the backend API hosted in the [devTinder-backend](https://github.com/akshadjaiswal/devTinder-backend). Ensure the backend is running before using the frontend.
+The frontend interacts with the backend API hosted in the [devTinder-backend](https://github.com/josephsamimmanuel/Dev_Tinder_Service). Ensure the backend is running before using the frontend.
 
 ## 🚀 Deployment
 
@@ -61,12 +61,5 @@ This project is open-source and available under the MIT License.
 ## 🤝 Contribution
 
 Contributions are welcome! Feel free to fork the repo and submit a pull request.
-
-## 💻 Learning Resources:
-
-Explore my additional repositories to deepen your understanding of related topics in the JavaScript ecosystem:
-
-- [Namaste Javascript](https://github.com/akshadjaiswal/Namaste-Javascript): A repository focused on learning Javascript concepts, from basics to advanced programming.
-- [Namaste React](https://github.com/akshadjaiswal/Namaste-React): A repository dedicated to mastering React.js, covering foundational and advanced aspects of building interactive UIs.
 
 ---
