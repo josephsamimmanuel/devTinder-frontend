@@ -15,8 +15,8 @@ const Feed = () => {
       const feed = await axios.get(BASE_URL + "/user/feed", {
         withCredentials: true,
       });
-      dispatch(addFeed(feed.data));
-      // console.log(feed);
+      dispatch(addFeed(feed?.data?.connectionRequests));
+      // console.log(feed?.data?.connectionRequests);
     } catch (err) {
       console.log(err);
     }
@@ -33,7 +33,7 @@ const Feed = () => {
     );
   return (
     feed && (
-      <div className="flex flex-col items-center gap-4 my-5">
+      <div className="flex justify-evenly items-center gap-4 my-5 flex-wrap">
         {feed && feed.map((user) => <UserCard key={user._id} user={user} />)}
         {/* <UserCard user={feed[0]} /> */}
       </div>

@@ -5,12 +5,12 @@ import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
-  console.log(user);
+  console.log("user",user);
   const dispatch = useDispatch();
-  const { _id, firstName, lastName, age, gender, about, photoURL, skills } =
+  const { _id, firstName, lastName, age, gender, about, photoUrl, skills } =
     user;
 
-  console.log("Extracted Skills:", skills); // Debugging
+  console.log("Extracted Skills:", photoUrl); // Debugging
 
   const handleSendRequest = async (status, userId) => {
     try {
@@ -30,7 +30,7 @@ const UserCard = ({ user }) => {
   return (
     <div className="card grid-rows-1 bg-base-300 w-96 shadow-xl p-3">
       <figure>
-        <img src={photoURL} alt="Shoes" />
+        <img src={photoUrl} alt="Shoes" className="w-full h-80 object-cover rounded-lg"/>
       </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
