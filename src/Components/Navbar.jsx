@@ -6,9 +6,11 @@ import { removeUser } from "../utils/userSlice";
 import { removeFeed } from "../utils/feedSlice";
 import { useState } from "react";
 import { validatePassword } from "../utils/validation";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
+  console.log(user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -56,13 +58,18 @@ const Navbar = () => {
   };
 
   const handleLogout = async () => {
+    const loadingToast = toast.loading('Logging out...');
     try {
-      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+      const res = await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       dispatch(removeFeed());
       navigate("/login");
+      toast.dismiss(loadingToast);
+      toast.success(res?.data?.message);
     } catch (err) {
       console.log(err);
+      toast.dismiss(loadingToast);
+      toast.error(err?.response?.data || "Logout failed");
     }
   };
   
@@ -122,7 +129,7 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar hover:bg-gray-700 transition"
               >
                 <div className="w-10 rounded-full border border-gray-500">
-                  <img alt="User Photo" src={user.photoURL} />
+                  <img alt="User Photo" src={user.photoUrl} />
                 </div>
               </div>
               <ul

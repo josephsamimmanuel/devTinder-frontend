@@ -4,6 +4,7 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
+import toast from "react-hot-toast";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Feed = () => {
         withCredentials: true,
       });
       dispatch(addFeed(feed?.data?.connectionRequests));
+      toast.success(feed?.data?.message);
       // console.log(feed?.data?.connectionRequests);
     } catch (err) {
       console.log(err);

@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestSlice";
+import toast from "react-hot-toast";
 
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.request);
-  console.log(requests);
+  console.log("requests", requests);
 
   const reviewRequest = async (status, _id) => {
     try {
@@ -24,11 +25,12 @@ const Requests = () => {
 
   const fetchRequests = async () => {
     try {
-      const requests = await axios.get(BASE_URL + "/user/requests/recieved", {
+      const requests = await axios.get(BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
-      dispatch(addRequests(requests.data.connectionRequests));
-      //   console.log(requests.data.connectionRequests);
+      dispatch(addRequests(requests.data.requests));
+      toast.success(requests.data.message);
+        console.log(requests.data.requests);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +55,7 @@ const Requests = () => {
         Requests ({requests.length})
       </h1>
       {requests.map((request) => {
-        const { _id, firstName, lastName, photoURL, age, gender, about } =
+        const { _id, firstName, lastName, photoUrl, age, gender, about } =
           request.fromUserId;
 
         return (
@@ -65,7 +67,7 @@ const Requests = () => {
               <img
                 alt="photo"
                 className="w-14 h-14 rounded-full object-contain"
-                src={photoURL}
+                src={photoUrl}
               />
             </div>
             <div className="text-left m-4 p-4 ">

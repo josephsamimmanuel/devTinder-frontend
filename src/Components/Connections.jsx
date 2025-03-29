@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection, removeConnection } from "../utils/connectionSlice";
+import toast from "react-hot-toast";
 
 const Connections = () => {
  
@@ -16,8 +17,8 @@ const Connections = () => {
       const connections = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
       });
-      dispatch(addConnection(connections.data.data));
-      //   console.log(connections.data.data);
+      dispatch(addConnection(connections.data.connections));
+      toast.success(connections.data.message);
     } catch (error) {
       console.log(error);
     }
@@ -41,8 +42,9 @@ const Connections = () => {
     <div className=" text-center my-10">
       <h1 className="font-bold text-3xl text-pink-400">Connections ({connections.length})</h1>
       {connections.map((connection) => {
-        const {_id, firstName, lastName, photoURL, age, gender, about } =
-          connection;
+        const {_id, firstName, lastName, photoUrl, age, gender, about } =
+          connection.response;
+          console.log(photoUrl);
 
         return (
           <div key={_id} className="flex items-center m-2 p-2  rounded-lg bg-base-300 w-1/2 mx-auto">
@@ -50,7 +52,7 @@ const Connections = () => {
               <img
                 alt="photo"
                 className="w-14 h-14 rounded-full object-contain"
-                src={photoURL}
+                src={photoUrl}
               />
             </div>
             <div className="text-left m-4 p-4 ">

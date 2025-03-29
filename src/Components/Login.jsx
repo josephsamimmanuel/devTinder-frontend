@@ -5,6 +5,7 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { validateEmail, validatePassword, validateFirstName, validateLastName } from "../utils/validation";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -43,6 +44,9 @@ const Login = () => {
     if (!handleValidation()) {
       return;
     }
+    // Start the loading toast
+    const loadingToast = toast.loading('Logging in...');
+    
     try {
       const res = await axios.post(
         BASE_URL + "/login",
@@ -52,10 +56,15 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      // console.log(res?.data?.data)
+      // Dismiss loading toast and show success
+      toast.dismiss(loadingToast);
+      toast.success(res?.data?.message);
       dispatch(addUser(res?.data?.data));
       return navigate("/");
     } catch (err) {
+      // Dismiss loading toast and show error
+      toast.dismiss(loadingToast);
+      toast.error(err?.response?.data || "Login failed");
       console.log(err);
     }
   };
@@ -67,16 +76,19 @@ const Login = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/signup",
-        formValues.firstName,
-        formValues.lastName,
-        formValues.emailId,
-        formValues.password,
+        {
+          firstName: formValues.firstName,
+          lastName: formValues.lastName,
+          emailId: formValues.emailId,
+          password: formValues.password,
+        },
         { 
           withCredentials: true 
         }
       );
       console.log(res);
       dispatch(addUser(res.data.data));
+      toast.success(res?.data?.message);
       return navigate("/profile");
     } catch (error) {
       console.log(error);

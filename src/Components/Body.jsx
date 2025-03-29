@@ -6,19 +6,19 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-
   const fetchUser = async () => {
     try {
       const user = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
-      // console.log(user.data);
-      dispatch(addUser(user.data));
+      dispatch(addUser(user.data.data));
+      toast.success(user.data.message);
     } catch (err) {
       if (err.status == 401) {
         navigate("/login");
@@ -31,7 +31,7 @@ const Body = () => {
     if (!user) {
       fetchUser();
     }
-  }, []);
+  }, [user]);
   return (
     <div>
       <Navbar />

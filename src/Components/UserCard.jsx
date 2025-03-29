@@ -3,9 +3,11 @@ import React from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
+import { useSelector } from "react-redux";
 
-const UserCard = ({ user }) => {
-  console.log("user",user);
+const UserCard = ({ user, page }) => {
+  console.log('carduser', user);
+  // const users = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const { _id, firstName, lastName, age, gender, about, photoUrl, skills } =
     user;
@@ -51,7 +53,7 @@ const UserCard = ({ user }) => {
             </div>
           </div>
         )}
-        <div className="card-actions justify-center my-4">
+        {page !== "edit" && (<div className="card-actions justify-center my-4">
           <button
             className="btn btn-accent"
             onClick={() => {
@@ -63,12 +65,12 @@ const UserCard = ({ user }) => {
           <button
             className="btn btn-secondary"
             onClick={() => {
-              handleSendRequest("intrested", _id);
+              handleSendRequest("interested", _id);
             }}
           >
-            Intrested
+            Interested
           </button>
-        </div>
+        </div>)}
       </div>
     </div>
   );

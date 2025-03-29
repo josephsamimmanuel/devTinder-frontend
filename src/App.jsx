@@ -7,10 +7,12 @@ import appStore from "./utils/appStore";
 import Feed from "./Components/Feed";
 import Connections from "./Components/Connections";
 import Requests from "./Components/Requests";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster position="bottom-center" />
       <Provider store={appStore}>
         <BrowserRouter basename="/">
           <Routes>

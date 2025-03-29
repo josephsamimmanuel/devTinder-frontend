@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { compose, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import feedReducer from "./feedSlice";
 import connectionReducer from "./connectionSlice";
@@ -11,6 +11,7 @@ const appStore = configureStore({
     connection: connectionReducer,
     request: requestReducer,
   },
+  devTools: true // This enables Redux DevTools
 });
 
 export default appStore;

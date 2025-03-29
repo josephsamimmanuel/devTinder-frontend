@@ -6,9 +6,10 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const EditProfile = ({ user }) => {
+  console.log('EditProfile user', user);
   const [firstName, setFirstname] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [photoURL, setPhotoURL] = useState(user.photoURL);
+  const [photoUrl, setPhotoUrl] = useState(user.photUrl);
   const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
@@ -21,12 +22,12 @@ const EditProfile = ({ user }) => {
     //clearing the errors
     setError("");
     try {
-      const res = await axios.post(
-        BASE_URL + "/profile/edit",
+      const res = await axios.patch(
+        BASE_URL + "/profile/update",
         {
           firstName,
           lastName,
-          photoURL,
+          photoUrl,
           age,
           gender,
           about,
@@ -93,8 +94,8 @@ const EditProfile = ({ user }) => {
                   </div>
                   <input
                     type="text"
-                    value={photoURL}
-                    onChange={(e) => setPhotoURL(e.target.value)}
+                    value={photoUrl}
+                    onChange={(e) => setPhotoUrl(e.target.value)}
                     className="input input-bordered w-full max-w-xs"
                   />
                 </label>
@@ -161,7 +162,8 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
         <UserCard
-          user={{ firstName, lastName, photoURL, about, age, gender , skills }}
+          user={user}
+          page={"edit"}
         />
       </div>
       {showToast && (
