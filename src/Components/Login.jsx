@@ -86,7 +86,6 @@ const Login = () => {
           withCredentials: true 
         }
       );
-      console.log(res);
       dispatch(addUser(res.data.data));
       toast.success(res?.data?.message);
       return navigate("/profile");

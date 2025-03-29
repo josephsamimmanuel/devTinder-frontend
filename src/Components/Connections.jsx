@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 const Connections = () => {
  
   const connections = useSelector((store) => store.connection);
-  console.log(connections);
   const dispatch = useDispatch();
   
   const fetchConnections = async () => {
@@ -44,7 +43,6 @@ const Connections = () => {
       {connections.map((connection) => {
         const {_id, firstName, lastName, photoUrl, age, gender, about } =
           connection.response;
-          console.log(photoUrl);
 
         return (
           <div key={_id} className="flex items-center m-2 p-2  rounded-lg bg-base-300 w-1/2 mx-auto">

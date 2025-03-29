@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
-  console.log(user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -74,7 +73,6 @@ const Navbar = () => {
   };
   
   const handleSaveChanges = async () => {
-    console.log('Current BASE_URL:', BASE_URL);
     if (!handleValidation()) return;
     try {
       const response = await axios.patch(

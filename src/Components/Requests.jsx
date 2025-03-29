@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.request);
-  console.log("requests", requests);
 
   const reviewRequest = async (status, _id) => {
     try {
@@ -30,7 +29,6 @@ const Requests = () => {
       });
       dispatch(addRequests(requests.data.requests));
       toast.success(requests.data.message);
-        console.log(requests.data.requests);
     } catch (error) {
       console.log(error);
     }

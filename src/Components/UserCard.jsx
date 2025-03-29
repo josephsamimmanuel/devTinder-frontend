@@ -6,13 +6,11 @@ import { removeUserFromFeed } from "../utils/feedSlice";
 import { useSelector } from "react-redux";
 
 const UserCard = ({ user, page }) => {
-  console.log('carduser', user);
   // const users = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const { _id, firstName, lastName, age, gender, about, photoUrl, skills } =
     user;
 
-  console.log("Extracted Skills:", photoUrl); // Debugging
 
   const handleSendRequest = async (status, userId) => {
     try {
