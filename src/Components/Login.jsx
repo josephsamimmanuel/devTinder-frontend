@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { validateEmail, validatePassword, validateFirstName, validateLastName } from "../utils/validation";
 import { toast } from "react-hot-toast";
+import { BACKGROUND_IMAGE } from "../utils/constants";
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -143,8 +144,13 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center my-10">
-      <div className="card bg-base-300 w-96 shadow-xl">
+    <div className="flex justify-center items-center mt-12" style={{ 
+      backgroundImage: `url(${BACKGROUND_IMAGE})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      minHeight: '65vh'
+    }}>
+      <div className={`card bg-base-300 w-96 h-1/3 shadow-xl ${!isLoginFrom ? 'my-10' : ''}`}>
         <div className="card-body">
           <h2 className="card-title justify-center">
             {isLoginFrom ? "Login" : "Signup"}

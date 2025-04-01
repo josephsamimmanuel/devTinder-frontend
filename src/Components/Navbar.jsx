@@ -74,6 +74,7 @@ const Navbar = () => {
   
   const handleSaveChanges = async () => {
     if (!handleValidation()) return;
+    const loadingToast = toast.loading('Saving changes...');
     try {
       const response = await axios.patch(
         `${BASE_URL}/profile/password`,
@@ -84,6 +85,8 @@ const Navbar = () => {
           withCredentials: true,
         }
       );
+      toast.dismiss(loadingToast);
+      toast.success(response.data.message);
       
       if (response.status === 200) {
         setFormData({
@@ -105,17 +108,17 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="fixed top-0 left-0 w-full bg-neutral text-white shadow-lg z-50">
+    <div className="fixed top-0 left-0 w-full bg-gradient-to-r from-gray-900 via-slate-800 to-gray-900 text-white shadow-lg z-50">
       <div className="navbar px-5 flex justify-between">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-green-400 hover:text-green-300 transition">
-          DevTinder 🔥
+        <Link to="/" className="text-2xl font-bold text-blue-400 hover:text-blue-300 transition">
+          PlaySwipe 🔥
         </Link>
 
         {user && (
           <div className="flex items-center gap-4">
             {/* Welcome Message */}
-            <div className="bg-gradient-to-r from-gray-800 to-gray-700 text-green-400 font-semibold px-4 py-2 rounded-xl shadow-md text-center">
+            <div className="bg-gradient-to-r from-slate-800 to-gray-800 text-blue-400 font-semibold px-4 py-2 rounded-xl shadow-md text-center">
               👋 Welcome, {user.firstName}!
             </div>
 
@@ -132,10 +135,10 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-gray-900 text-gray-300 border border-gray-700 rounded-md shadow-lg mt-3 w-52 p-2 right-0 z-50"
+                className="menu menu-sm dropdown-content bg-slate-900 text-gray-200 border border-slate-700 rounded-md shadow-lg mt-3 w-52 p-2 right-0 z-50"
               >
                 <li>
-                  <Link to="/profile" className="justify-between hover:bg-gray-800 rounded-md p-2">
+                  <Link to="/profile" className="justify-between hover:bg-slate-800 hover:text-blue-400 rounded-md p-2">
                     Profile <span className="badge badge-success">New</span>
                   </Link>
                 </li>
@@ -156,7 +159,7 @@ const Navbar = () => {
                     <div className="bg-base-200 border border-base-300 p-6 rounded-lg w-full max-w-md">
                       <h2 className="text-xl font-bold mb-4">Change Password</h2>
 
-                      <div className="flex flex-col gap-4 h-full">
+                      <div className="flex flex-col gap-6 h-full">
                         <label>
                           <span className="font-medium">New Password</span>
                           <input 

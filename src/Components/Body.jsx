@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import axios from "axios";
@@ -11,7 +11,9 @@ import toast from "react-hot-toast";
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector((store) => store.user);
+
   const fetchUser = async () => {
     try {
       const user = await axios.get(BASE_URL + "/profile/view", {
@@ -32,10 +34,14 @@ const Body = () => {
       fetchUser();
     }
   }, [user]);
+
+  // Check if current path is login
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <div>
       <Navbar />
-      <div className="pt-20">
+      <div className={isLoginPage ? "" : "pt-20"}>
         <Outlet />
       </div>
       <Footer />

@@ -11,15 +11,19 @@ const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const getFeed = async () => {
     if (feed) return;
+    const loadingToast = toast.loading('Loading feed...');
     try {
       const feed = await axios.get(BASE_URL + "/user/feed", {
         withCredentials: true,
       });
       dispatch(addFeed(feed?.data?.connectionRequests));
+      toast.dismiss(loadingToast);
       toast.success(feed?.data?.message);
       // console.log(feed?.data?.connectionRequests);
     } catch (err) {
       console.log(err);
+      toast.dismiss(loadingToast);
+      toast.error(err?.response?.data || "Failed to load feed");
     }
   };
   useEffect(() => {

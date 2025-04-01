@@ -4,25 +4,26 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import toast from "react-hot-toast";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstname] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [photoUrl, setPhotoUrl] = useState(user.photUrl);
+  const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
   const [skills, setSkills] = useState(user.skills || []);
   const [error, setError] = useState("");
-  const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
 
   const saveProfile = async () => {
     //clearing the errors
     setError("");
+    const loadingToast = toast.loading('Saving changes...');
     try {
       const res = await axios.patch(
-        BASE_URL + "/profile/update",
+        BASE_URL + "/profile/edit",
         {
           firstName,
           lastName,
@@ -37,12 +38,11 @@ const EditProfile = ({ user }) => {
         }
       );
       dispatch(addUser(res.data.data));
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 3000);
+      toast.dismiss(loadingToast);
+      toast.success(res.data.message);
     } catch (error) {
-      setError(error.response.data);
+      toast.dismiss(loadingToast);
+      toast.error(error?.response?.data || "Something went wrong");
     }
   };
 
@@ -165,13 +165,6 @@ const EditProfile = ({ user }) => {
           page={"edit"}
         />
       </div>
-      {showToast && (
-        <div className="toast toast-top toast-center pt-20 ">
-          <div className="alert alert-success">
-            <span>Profile saved successfully</span>
-          </div>
-        </div>
-      )}
     </>
   );
 };

@@ -1,0 +1,46 @@
+.swipe-left {
+  animation: swipeLeft 0.5s forwards;
+}
+
+.swipe-right {
+  animation: swipeRight 0.5s forwards;
+}
+
+@keyframes swipeLeft {
+  100% {
+    transform: translateX(-200%) rotate(-20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeRight {
+  100% {
+    transform: translateX(200%) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+.swipe-overlay-left, .swipe-overlay-right {
+  position: absolute;
+  top: 40%;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transform: rotate(-20deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.swipe-overlay-left {
+  left: 1rem;
+  color: #ff4444;
+  border: 3px solid #ff4444;
+}
+
+.swipe-overlay-right {
+  right: 1rem;
+  color: #44ff44;
+  border: 3px solid #44ff44;
+  transform: rotate(20deg);
+} 
