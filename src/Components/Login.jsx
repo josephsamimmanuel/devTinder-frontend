@@ -49,14 +49,24 @@ const Login = () => {
     const loadingToast = toast.loading('Logging in...');
     
     try {
+      console.log('Attempting login to:', BASE_URL + "/login");
       const res = await axios.post(
         BASE_URL + "/login",
         {
           emailId: formValues.emailId,
           password: formValues.password,
         },
-        { withCredentials: true }
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       );
+      console.log('Login response:', res);
+      console.log('Response headers:', res.headers);
+      console.log('Cookies after login:', document.cookie);
+      
       // Dismiss loading toast and show success
       toast.dismiss(loadingToast);
       toast.success(res?.data?.message);
@@ -65,8 +75,9 @@ const Login = () => {
     } catch (err) {
       // Dismiss loading toast and show error
       toast.dismiss(loadingToast);
+      console.error('Login error:', err);
+      console.error('Error response:', err.response);
       toast.error(err?.response?.data || "Login failed");
-      console.log(err);
     }
   };
 
