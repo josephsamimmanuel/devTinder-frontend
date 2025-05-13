@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "../utils/axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
@@ -49,20 +50,12 @@ const Login = () => {
     const loadingToast = toast.loading('Logging in...');
     
     try {
-      console.log('Attempting login to:', BASE_URL + "/login");
-      const res = await axios.post(
-        BASE_URL + "/login",
-        {
-          emailId: formValues.emailId,
-          password: formValues.password,
-        },
-        { 
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+      console.log('Attempting login...');
+      const res = await axiosInstance.post("/login", {
+        emailId: formValues.emailId,
+        password: formValues.password,
+      });
+      
       console.log('Login response:', res);
       console.log('Response headers:', res.headers);
       console.log('Cookies after login:', document.cookie);
@@ -86,23 +79,18 @@ const Login = () => {
       return;
     }
     try {
-      const res = await axios.post(
-        BASE_URL + "/signup",
-        {
-          firstName: formValues.firstName,
-          lastName: formValues.lastName,
-          emailId: formValues.emailId,
-          password: formValues.password,
-        },
-        { 
-          withCredentials: true 
-        }
-      );
+      const res = await axiosInstance.post("/signup", {
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        emailId: formValues.emailId,
+        password: formValues.password,
+      });
       dispatch(addUser(res.data.data));
       toast.success(res?.data?.message);
       return navigate("/profile");
     } catch (error) {
-      console.log(error);
+      console.error('Signup error:', error);
+      toast.error(error?.response?.data || "Signup failed");
     }
   };
 

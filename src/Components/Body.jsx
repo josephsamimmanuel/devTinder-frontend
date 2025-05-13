@@ -1,8 +1,7 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import axiosInstance from "../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useEffect } from "react";
@@ -16,16 +15,14 @@ const Body = () => {
 
   const fetchUser = async () => {
     try {
-      const user = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
+      const user = await axiosInstance.get("/profile/view");
       dispatch(addUser(user.data.data));
       toast.success(user.data.message);
     } catch (err) {
-      if (err.status == 401) {
+      if (err.response?.status === 401) {
         navigate("/login");
       }
-      console.log(err);
+      console.error('Error fetching user:', err);
     }
   };
 
