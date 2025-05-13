@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection, removeConnection } from "../utils/connectionSlice";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { setChatUser } from "../utils/chatUserSlice";
 
 const Connections = () => {
  
@@ -53,12 +55,20 @@ const Connections = () => {
                 src={photoUrl}
               />
             </div>
-            <div className="text-left m-4 p-4 ">
+            <div className="text-left m-4 p-4 w-full flex justify-between items-center">
+              <div>
               <h2 className="font-bold text-xl">
                 {firstName + " " + lastName}
               </h2>
               {age && gender && <p>{age + " " + gender}</p>}
               <p>{about}</p>
+              </div>
+              <Link to={`/chat/${_id}`}>
+                <button className="btn btn-primary" onClick={() => {
+                  console.log(connection.response);
+                  dispatch(setChatUser(connection.response));
+                }}>Chat</button>
+              </Link>
             </div>
           </div>
         );

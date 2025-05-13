@@ -7,6 +7,7 @@ import appStore from "./utils/appStore";
 import Feed from "./Components/Feed";
 import Connections from "./Components/Connections";
 import Requests from "./Components/Requests";
+import Chat from "./Components/Chat";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
+              <Route path="/chat/:id" element={<Chat />} />
             </Route>
           </Routes>
         </BrowserRouter>

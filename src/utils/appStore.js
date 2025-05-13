@@ -3,6 +3,7 @@ import userReducer from "./userSlice";
 import feedReducer from "./feedSlice";
 import connectionReducer from "./connectionSlice";
 import requestReducer from "./requestSlice";
+import chatUserReducer from "./chatUserSlice";
 
 const appStore = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const appStore = configureStore({
     feed: feedReducer,
     connection: connectionReducer,
     request: requestReducer,
+    chatUser: chatUserReducer,
   },
   devTools: true // This enables Redux DevTools
 });
